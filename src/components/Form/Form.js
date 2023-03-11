@@ -3,13 +3,15 @@ import Input from "./Input";
 import {githubApi} from "../../api/githubApi";
 
 class Form {
-    constructor(name, inputName) {
+    constructor(name, inputName,type,placeholder) {
         this.name = name
         this.inputName = inputName
+        this.type = type
+        this.placeholder = placeholder
     }
 
-    _render(name, inputName) {
-        const input = new Input(inputName)
+    _render(name, inputName,type,placeholder) {
+        const input = new Input(inputName,type,placeholder)
         return createElement(`
                     <form class='form'  name = ${name}>
                         ${input.elem.outerHTML}
@@ -19,7 +21,7 @@ class Form {
     }
 
     get elem() {
-        return this._render(this.name, this.inputName)
+        return this._render(this.name, this.inputName,this.type,this.placeholder)
     }
 
     async handleSubmit(e) {
