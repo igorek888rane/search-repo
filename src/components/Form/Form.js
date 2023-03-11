@@ -2,6 +2,7 @@ import createElement from "../../utils/createElement";
 import Input from "./Input";
 import {githubApi} from "../../api/githubApi";
 import listEl from "../ListRepo/listEl";
+import Loader from "../UI/Loader";
 
 class Form {
     constructor(name, inputName, type, placeholder) {
@@ -34,14 +35,21 @@ class Form {
             this.setError(search, 'block', 'Enter repository name')
             return
         }
-        const items = await githubApi(searchValue)
-        e.target[this.inputName].value = ''
-        if (items.length) {
-            list.innerHTML = ''
-            items.forEach(el => list.append(new listEl(el).elem))
-        } else {
+        try {
+            list.innerHTML = `${new Loader().elem.outerHTML}`
+            const {items} = await githubApi(searchValue)
+            e.target[this.inputName].value = ''
+            if (items.length) {
+                list.innerHTML = ''
+                items.forEach(el => list.append(new listEl(el).elem))
+                return
+            }
             list.innerHTML = '<h2>Not Found</h2>'
+
+        } catch (e) {
+            list.innerHTML = '<h2>Error</h2>'
         }
+
         search.blur()
         this.setError(search, 'none', '')
     }
