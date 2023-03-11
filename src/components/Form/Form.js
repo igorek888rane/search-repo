@@ -1,5 +1,6 @@
 import createElement from "../../utils/createElement";
 import Input from "./Input";
+import {githubApi} from "../../api/githubApi";
 
 class Form {
     constructor(name, inputName) {
@@ -23,8 +24,7 @@ class Form {
 
     async handleSubmit(e) {
         e.preventDefault()
-        const {items} = await fetch(`https://api.github.com/search/repositories?q=${e.target[this.inputName].value}`)
-            .then(res=>res.json())
+        const items = await githubApi(e.target[this.inputName].value)
         console.log(items);
         e.target[this.inputName].value = ''
     }
