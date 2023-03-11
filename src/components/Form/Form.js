@@ -37,8 +37,8 @@ class Form {
         }
         try {
             list.innerHTML = `${new Loader().elem.outerHTML}`
-            const {items} = await githubApi(searchValue)
             e.target[this.inputName].value = ''
+            const {items} = await githubApi(searchValue)
             if (items.length) {
                 list.innerHTML = ''
                 items.forEach(el => list.append(new listEl(el).elem))
