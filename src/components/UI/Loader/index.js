@@ -3,8 +3,8 @@ import createElement from "../../../utils/createElement";
 class Loader {
     _render() {
         return createElement(`
-                        <div class='loading_block'>
-                               <div class="loading"></div>
+                        <div class='loading'>
+                               <div class="loading__item"></div>
                                <p class='loading__text'>Loading...</p>
                         </div>`)
     }
