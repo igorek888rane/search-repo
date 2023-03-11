@@ -21,9 +21,11 @@ class Form {
         return this._render(this.name, this.inputName)
     }
 
-    handleSubmit(e) {
+    async handleSubmit(e) {
         e.preventDefault()
-        console.log(e.target[this.inputName].value);
+        const {items} = await fetch(`https://api.github.com/search/repositories?q=${e.target[this.inputName].value}`)
+            .then(res=>res.json())
+        console.log(items);
         e.target[this.inputName].value = ''
     }
 
