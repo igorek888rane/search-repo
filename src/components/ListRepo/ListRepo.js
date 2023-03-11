@@ -6,7 +6,9 @@ class ListRepo {
         return createElement(`
            <div class='list__container container'>
                  <h1>Repositories</h1>
-                 <div class="list"></div>
+                 <div class="list">
+                        <h2>Enter name repositories</h2> 
+                 </div>
            <div>
         `)
     }

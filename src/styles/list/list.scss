@@ -5,5 +5,21 @@
 
   .list {
     padding: 30px;
+
+    .list__item {
+      border: 1px solid;
+      padding: 15px;
+      margin-top: 5px;
+
+      p {
+        font-weight: 600;
+      }
+
+      .list__info {
+        font-weight: 400;
+        color: $colorEl;
+      }
+
+    }
   }
 }

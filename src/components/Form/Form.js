@@ -29,21 +29,21 @@ class Form {
         e.preventDefault()
         const search = e.target[this.inputName]
         const searchValue = e.target[this.inputName].value
-        if (searchValue) {
-            const list = document.querySelector('.list')
-            e.target[this.inputName].value = ''
-            const items = await githubApi(searchValue)
-            list.innerHTML = ''
-            items.forEach((el, i) => {
-                const listItem = new listEl(i, el)
-                list.append(listItem.elem)
-            })
-            search.blur()
-            this.setError(search, 'none', '')
-
-        } else {
+        const list = document.querySelector('.list')
+        if (!searchValue) {
             this.setError(search, 'block', 'Enter repository name')
+            return
         }
+        const items = await githubApi(searchValue)
+        e.target[this.inputName].value = ''
+        if (items.length) {
+            list.innerHTML = ''
+            items.forEach(el => list.append(new listEl(el).elem))
+        } else {
+            list.innerHTML = '<h2>Not Found</h2>'
+        }
+        search.blur()
+        this.setError(search, 'none', '')
     }
 
     handleKeyDown(e) {
