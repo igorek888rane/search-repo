@@ -1,6 +1,7 @@
 import createElement from "../../utils/createElement";
 import Input from "./Input";
 import {githubApi} from "../../api/githubApi";
+import listEl from "../ListRepo/listEl";
 
 class Form {
     constructor(name, inputName, type, placeholder) {
@@ -29,9 +30,17 @@ class Form {
         const search = e.target[this.inputName]
         const searchValue = e.target[this.inputName].value
         if (searchValue) {
+            const list = document.querySelector('.list')
             e.target[this.inputName].value = ''
             const items = await githubApi(searchValue)
-            console.log(items);
+            list.innerHTML = ''
+            items.forEach((el, i) => {
+                const listItem = new listEl(i, el)
+                list.append(listItem.elem)
+            })
+            search.blur()
+            this.setError(search, 'none', '')
+
         } else {
             this.setError(search, 'block', 'Enter repository name')
         }
