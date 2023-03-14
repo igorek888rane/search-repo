@@ -36,6 +36,8 @@ class Form {
             return
         }
         try {
+            search.blur()
+            this.setError(search, 'none', '')
             list.innerHTML = `${new Loader().elem.outerHTML}`
             e.target[this.inputName].value = ''
             const {items} = await githubApi(searchValue)
@@ -50,8 +52,6 @@ class Form {
             list.innerHTML = '<h2>Error</h2>'
         }
 
-        search.blur()
-        this.setError(search, 'none', '')
     }
 
     handleKeyDown(e) {
